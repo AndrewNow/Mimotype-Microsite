@@ -24,14 +24,11 @@ const formattedDate = `${month} ${day}${suffix}, ${year}`;
   <h2>Next article</h2>
   <div class="contentWrapper">
     <a href={`/blog/${articleTypeSlug}/${post.slug}`}>
-      <Image
+      <img
         class="image-styles"
-        width={1115}
-        height={500}
-        fit="cover"
-        aspectRatio="1120:500"
         src={post.imageUrl}
         alt={post.title}
+        loading="lazy"
       />
     </a>
     <div class="postTextContainer">
@@ -74,6 +71,7 @@ const formattedDate = `${month} ${day}${suffix}, ${year}`;
   }
   .image-styles {
     height: auto;
+    width: 100%;
   }
 
   .imageWrapper {
@@ -94,6 +92,27 @@ const formattedDate = `${month} ${day}${suffix}, ${year}`;
       text-transform: uppercase;
       display: block;
       padding-bottom: 1rem;
+    }
+  }
+  @media (max-width: 1280px) {
+    .contentWrapper {
+      grid-gap: 0 2rem;
+    }
+  }
+  @media (max-width: 992px) {
+    .contentWrapper {
+      display: block;
+    }
+    .postTextContainer {
+      padding-top: 1.5rem;
+      small {
+        padding-bottom: 0.5rem;
+      }
+    }
+  }
+  @media (max-width: 576px) {
+    .contentWrapper {
+      padding-top: 1.5rem;
     }
   }
 </style>

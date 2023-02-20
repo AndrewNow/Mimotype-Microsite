@@ -78,6 +78,20 @@ const { portableText } = Astro.props;
   }
   @media (max-width: 576px) {
     .styledMarkdown {
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      p,
+      small,
+      blockquote,
+      ul,
+      li,
+      ol {
+        width: 100%;
+      }
       p {
         line-height: 160%;
       }
