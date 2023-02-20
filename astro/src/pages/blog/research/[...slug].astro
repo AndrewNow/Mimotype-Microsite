@@ -4,23 +4,20 @@ import BlogPost from "../../../components/BlogPost.astro";
 import { getSanityImageURL } from "../../../utils/helpers.js";
 import { getResearchPosts, getMoreResearchPosts } from "../../../lib/api.js";
 
-export async function getStaticPaths() {
-  const researchPosts = await getResearchPosts();
+const researchPosts = await getResearchPosts();
 
-  return researchPosts.map((post) => ({
-    params: { slug: post.slug },
-    props: { post },
-  }));
-}
+// https://docs.astro.build/en/core-concepts/routing/#server-ssr-mode
+const { slug } = Astro.params;
 
-const { post } = Astro.props;
+const post = researchPosts.find((post) => post.slug === slug);
+
+if (!post) return Astro.redirect("/404");
 
 const seo = {
   title: post.title,
   // description: post.description,
   image: getSanityImageURL(post.mainImage).width(1200).url(),
 };
-
 const lightColor = `var(--color-purple-light)`;
 const darkColor = `var(--color-purple-dark)`;
 const articleType = "Research";
