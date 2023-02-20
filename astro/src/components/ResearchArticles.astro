@@ -1,0 +1,86 @@
+---
+import { Image } from "@astrojs/image/components";
+import VisitArticleButton from "./VisitArticleButton.astro";
+const { data } = Astro.props;
+---
+
+<div class="container">
+  {
+    data.map((post) => {
+      const imageUrl = post.imageUrl;
+
+      const date = new Date(post.publishedAt);
+      const suffixes = ["th", "st", "nd", "rd"];
+      // Get the month, day, and year values from the Date object
+      const month = date.toLocaleString("default", { month: "long" });
+      const day = date.getDate();
+      const year = date.getFullYear();
+
+      // Determine the correct suffix for the day of the month
+      const suffix = suffixes[(day - 20) % 10] || suffixes[day] || suffixes[0];
+
+      // Construct the final formatted date string
+      const formattedDate = `${month} ${day}${suffix}, ${year}`;
+
+      return (
+        <div class="postWrapper" key={post._id}>
+          <div class="imageWrapper">
+            <Image
+              class="image-styles"
+              width={1115}
+              height={500}
+              fit="cover"
+              aspectRatio="1055:500"
+              src={imageUrl}
+              alt={post.title}
+            />
+          </div>
+          <div class="postTextContainer">
+            <small>{formattedDate}</small>
+            <h4>{post.title}</h4>
+            <VisitArticleButton
+              url={`/blog/research/${post.slug}`}
+              colorPrimary="var(--color-green-light)"
+              colorSecondary="var(--color-green-dark)"
+            />
+          </div>
+        </div>
+      );
+    })
+  }
+</div>
+
+<style lang="scss">
+  .image-styles {
+    height: auto;
+  }
+  .container {
+    width: 100%;
+    position: relative;
+  }
+  .postWrapper {
+    padding: 3rem 0;
+    padding-top: 0;
+
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: auto;
+    grid-gap: 0 3rem;
+  }
+
+  .imageWrapper {
+    // flex: 2;
+    grid-column: 1 / 2;
+    aspect-ratio: 1120/500;
+  }
+  .postTextContainer {
+    grid-column: 2 / 3;
+    display: block;
+
+    small {
+      text-transform: uppercase;
+      display: block;
+      padding-bottom: 1rem;
+    }
+  }
+</style>

@@ -1,0 +1,40 @@
+---
+import Layout from "../../../layouts/PageLayout.astro";
+import BlogPost from "../../../components/BlogPost.astro";
+import { getSanityImageURL } from "../../../utils/helpers.js";
+import { getResearchPosts, getMoreResearchPosts } from "../../../lib/api.js";
+
+export async function getStaticPaths() {
+  const researchPosts = await getResearchPosts();
+
+  return researchPosts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+
+const seo = {
+  title: post.title,
+  // description: post.description,
+  image: getSanityImageURL(post.mainImage).width(1200).url(),
+};
+
+const lightColor = `var(--color-purple-light)`;
+const darkColor = `var(--color-purple-dark)`;
+const articleType = "Research";
+
+// load "read more" data
+const readMoreData = await getMoreResearchPosts();
+---
+
+<Layout seo={seo}>
+  <BlogPost
+    post={post}
+    lightColor={lightColor}
+    darkColor={darkColor}
+    articleType={articleType}
+    readMoreData={readMoreData}
+  />
+</Layout>

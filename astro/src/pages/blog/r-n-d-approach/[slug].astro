@@ -1,0 +1,40 @@
+---
+import Layout from "../../../layouts/PageLayout.astro";
+import BlogPost from "../../../components/BlogPost.astro";
+import { getSanityImageURL } from "../../../utils/helpers.js";
+import { getApproachPosts, getMoreApproachPosts } from "../../../lib/api.js";
+
+export async function getStaticPaths() {
+  const approachPosts = await getApproachPosts();
+
+  return approachPosts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const seo = {
+  title: post.title,
+  // description: post.description,
+  image: getSanityImageURL(post.mainImage).width(1200).url(),
+};
+
+const lightColor = `var(--color-red-light)`;
+const darkColor = `var(--color-red-dark)`;
+const articleType = "R&D Approach";
+
+// load "read more" data
+const readMoreData = await getMoreApproachPosts();
+console.log(readMoreData);
+---
+
+<Layout seo={seo}>
+  <BlogPost
+    post={post}
+    lightColor={lightColor}
+    darkColor={darkColor}
+    articleType={articleType}
+    readMoreData={readMoreData}
+  />
+</Layout>

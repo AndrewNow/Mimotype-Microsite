@@ -1,0 +1,41 @@
+---
+import Layout from "../../../layouts/PageLayout.astro";
+import BlogPost from "../../../components/BlogPost.astro";
+import { getSanityImageURL } from "../../../utils/helpers.js";
+import { getStrategyPosts, getMoreStrategyPosts } from "../../../lib/api.js";
+
+export async function getStaticPaths() {
+  const strategyPosts = await getStrategyPosts();
+
+  return strategyPosts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+
+const seo = {
+  title: post.title,
+  // description: post.description,
+  image: getSanityImageURL(post.mainImage).width(1200).url(),
+};
+
+const lightColor = `var(--color-yellow-light)`;
+const darkColor = `var(--color-yellow-dark)`;
+const articleType = "Strategy";
+
+// load "read more" data
+const readMoreData = await getMoreStrategyPosts();
+console.log(readMoreData);
+---
+
+<Layout seo={seo}>
+  <BlogPost
+    post={post}
+    lightColor={lightColor}
+    darkColor={darkColor}
+    articleType={articleType}
+    readMoreData={readMoreData}
+  />
+</Layout>

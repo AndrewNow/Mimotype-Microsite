@@ -1,5 +1,5 @@
-import { portableTextToHtml } from 'astro-sanity';
-import { getSanityImageURL } from '../utils/helpers.js';
+import { portableTextToHtml } from "astro-sanity";
+import { getSanityImageURL } from "../utils/helpers.js";
 
 const customComponents = {
   types: {
@@ -7,7 +7,7 @@ const customComponents = {
       return `
         <picture>
           <source
-            srcset="${getSanityImageURL(value.asset).format('webp').url()}"
+            srcset="${getSanityImageURL(value.asset).format("webp").url()}"
             type="image/webp"
           />
           <img
@@ -20,9 +20,9 @@ const customComponents = {
     },
     image: ({ value }) => {
       return `
-        <picture>
+        <picture class="imageWrapper">
           <source
-            srcset="${getSanityImageURL(value.asset).format('webp').url()}"
+            srcset="${getSanityImageURL(value.asset).format("webp").url()}"
             type="image/webp"
           />
           <img

@@ -1,0 +1,76 @@
+---
+import { Image } from "@astrojs/image/components";
+const { data, articleType, slugType } = Astro.props;
+---
+
+<div class="container">
+  {
+    data.map((post) => {
+      const imageUrl = post.imageUrl;
+
+      const date = new Date(post.publishedAt);
+
+      // get the day, month, and year from the date object
+      const day = date.getDate();
+      const month = date.getMonth() + 1;
+      const year = date.getFullYear();
+
+      // format the date as DD.MM.YYYY
+      const formattedDate = `${day.toString().padStart(2, "0")}.${month
+        .toString()
+        .padStart(2, "0")}.${year.toString()}`;
+
+      return (
+        <div key={post._id}>
+          <Image
+            class="image-styles"
+            width={575}
+            height={280}
+            fit="cover"
+            aspectRatio="575:280"
+            src={imageUrl}
+            alt={post.title}
+          />
+          <div class="postTextContainer">
+            <small>{formattedDate}</small>
+            <h6>
+              <a href={`/blog/${slugType}/${post.slug}`}>{post.title}</a>
+            </h6>
+          </div>
+        </div>
+      );
+    })
+  }
+</div>
+
+<style lang="scss">
+  .image-styles {
+    height: auto;
+  }
+  .container {
+    grid-column: 2 / 3;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    position: relative;
+    grid-gap: 3rem;
+  }
+  .postTextContainer {
+    display: flex;
+    margin-top: 1rem;
+    h6 {
+      a {
+        letter-spacing: 0px;
+        color: var(--color-text);
+      }
+      margin: 0;
+      width: 80%;
+    }
+    small {
+      margin-right: 1rem;
+      width: 20%;
+      text-transform: uppercase;
+      display: block;
+    }
+  }
+</style>

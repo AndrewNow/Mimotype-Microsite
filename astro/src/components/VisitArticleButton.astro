@@ -1,0 +1,60 @@
+---
+const { url, colorPrimary, colorSecondary } = Astro.props;
+const ColorPrimary = colorPrimary;
+const ColorSecondary = colorSecondary;
+---
+
+<div>
+  <a class="wrapper" href={url}>
+    <div class="inner">
+      <span class="circle">
+        <svg
+          width="14"
+          height="13"
+          viewBox="0 0 14 13"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M3.03492 0.240234V1.50525H10.9982L0.504883 11.9986L1.39672 12.8904L11.89 2.39709V10.3604H13.1551V0.240234H3.03492Z"
+            fill={colorSecondary}></path>
+        </svg>
+      </span>
+      <div class="title">Visit article</div>
+    </div>
+  </a>
+</div>
+
+<style lang="scss" define:vars={{ ColorSecondary, ColorPrimary }}>
+  .wrapper {
+    margin: 2rem 0;
+    display: inline-block;
+    border-radius: 50px;
+    background-color: var(--ColorSecondary);
+    border: 1px solid var(--ColorPrimary);
+  }
+
+  .inner {
+    padding: 0.4rem 1rem;
+    padding-left: 0.4rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    .title {
+      padding: 0 0.75rem;
+      text-decoration: none;
+      color: var(--ColorPrimary);
+    }
+  }
+
+  .circle {
+    display: block;
+    aspect-ratio: 1/1;
+    width: 40px;
+    height: auto;
+    background-color: var(--ColorPrimary);
+    border-radius: 100%;
+    display: grid;
+    place-items: center;
+  }
+</style>

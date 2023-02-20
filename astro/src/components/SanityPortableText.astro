@@ -1,7 +1,94 @@
 ---
 import { sanityPortableText } from "../lib/sanityPortableText";
 
-const {portableText} = Astro.props;
+const { portableText } = Astro.props;
 ---
 
-<Fragment set:html={sanityPortableText(portableText)}/>
+<div set:html={sanityPortableText(portableText)} class="styledMarkdown" />
+
+<style is:global lang="scss">
+  .styledMarkdown {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p,
+    small,
+    blockquote,
+    ul,
+    li,
+    ol {
+      width: 65%;
+      margin: 0 auto;
+    }
+    blockquote {
+      padding: 1.5rem 0;
+      padding-left: 2rem;
+      margin-top: 3rem;
+      margin-bottom: 3rem;
+    }
+    picture,
+    img {
+      margin: 3rem auto;
+    }
+
+    h3,
+    h4 {
+      padding: 1rem 0;
+    }
+  }
+
+  @media (max-width: 1500px) {
+    .styledMarkdown {
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      p,
+      small,
+      blockquote,
+      ul,
+      li,
+      ol {
+        width: 75%;
+      }
+    }
+  }
+  @media (max-width: 1280px) {
+    .styledMarkdown {
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      p,
+      small,
+      blockquote,
+      ul,
+      li,
+      ol {
+        width: 95%;
+      }
+    }
+  }
+  @media (max-width: 576px) {
+    .styledMarkdown {
+      p {
+        line-height: 160%;
+      }
+
+      blockquote {
+        font-size: 18px;
+        letter-spacing: 0px;
+        line-height: 175%;
+        padding: 1rem 0;
+        padding-left: 1rem;
+      }
+    }
+  }
+</style>

@@ -1,0 +1,33 @@
+---
+import Stamp from "../svg/stamp.astro";
+---
+
+<header class="header">
+  <div class="inner">
+    <a href="/">
+      <Stamp />
+    </a>
+  </div>
+</header>
+
+<style lang="scss">
+  .header {
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding-top: 2rem;
+  }
+  .inner {
+    position: relative;
+    width: var(--page-width);
+    max-width: var(--max-page-width);
+    margin: 0 auto;
+    
+    a {
+      display: inline-block;
+      height: 100%;
+    }
+  }
+</style>

@@ -1,34 +1,130 @@
 ---
-import SanityPortableText from './SanityPortableText.astro'
-import { getSanityImageURL, formatBlogPostDate } from '../utils/helpers.js'
-import Container from './Container.astro';
+import SanityPortableText from "./SanityPortableText.astro";
+import { getSanityImageURL, formatBlogPostDate } from "../utils/helpers.js";
+import Stamp from "../svg/stamp.astro";
 
-export interface Props {
-  post: any;
-}
+const { post, lightColor, darkColor, articleType, readMoreData } = Astro.props;
 
-const { post } = Astro.props;
-// const blogPostBody = await convertBlockContentToMarkdown(post.bodyRaw);
+
 ---
 
-<Container>
-  <article class="post-content__article">
-      {post.mainImage && <img width="720" height="420" class="post-main__img" loading="lazy" src={getSanityImageURL(post.mainImage).url()} />}
-      <h1>{post.title}</h1>
-      <time>{formatBlogPostDate(post.publishedAt)}</time>
-      {post.author && <p>By {post.author.name}</p>}
+<div class="blogPostWrapper">
+  <article class="blogArticleWrapper">
+    <header class="blogHeader">
+      {
+        articleType && (
+          <div class="categoryPill">
+            <p>{articleType}</p>
+          </div>
+        )
+      }
+      <h2>{post.title}</h2>
+      <time>
+        <small>
+          {formatBlogPostDate(post.publishedAt)}
+        </small>
+      </time>
+    </header>
+    {post.author && <p>By {post.author.name}</p>}
+    <div class="markdownWrapper">
       <SanityPortableText portableText={post.body} />
+    </div>
+    <div class="stampSVGWrapper">
+      <Stamp />
+    </div>
   </article>
-</Container>
+  {
+    readMoreData && (
+      <div>
+        <h1>{readMoreData[0].slug}</h1>
+      </div>
+    )
+  }
+  <!-- {
+    post.mainImage && (
+      <img
+        width="720"
+        height="420"
+        class="post-main__img"
+        loading="lazy"
+        src={getSanityImageURL(post.mainImage).url()}
+      />
+    )
+  } -->
+</div>
 
-<style>
-  .post-content__article {
-    padding: 1rem;
+<style lang="scss" is:global define:vars={{ lightColor, darkColor }}>
+  .blogPostWrapper {
+    width: var(--page-width);
+    max-width: var(--max-page-width);
+    margin: 0 auto;
+    position: relative;
+  }
+  .blogArticleWrapper {
+    padding-top: 15rem;
+    width: 65%;
+    margin: 0 auto;
+  }
+  .blogHeader {
+    margin-bottom: 5rem;
+    h2 {
+      padding-bottom: 2rem;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid var(--color-text);
+    }
+    small {
+      text-transform: uppercase;
+    }
   }
 
-  .post-main__img {
-    width: 100%;
-    height: auto;
+  .categoryPill {
+    p {
+      font-family: "Allnce-Neue-Regular";
+      leading-trim: both;
+      text-edge: cap alphabetic;
+    }
+    letter-spacing: 0px;
+    border-radius: 50px;
+    padding: 0.25rem 1.15rem;
+    margin: 2rem 0;
+    display: inline-block;
+    color: var(--lightColor);
+    border: 2px solid var(--lightColor);
+    background-color: var(--darkColor);
+  }
+
+  .markdownWrapper {
+    a {
+      color: var(--lightColor);
+    }
+    blockquote {
+      border-left: 2px solid var(--lightColor);
+    }
+  }
+  .stampSVGWrapper {
+    display: inline-block;
+    margin: 5rem 0;
+    display: grid;
+    place-items: center;
+  }
+
+  @media (max-width: 1500px) {
+    .blogArticleWrapper {
+      width: 85vw;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .blogHeader {
+      margin-bottom: 3rem;
+    }
+    .blogArticleWrapper {
+      padding-top: 5rem;
+    }
+    .categoryPill {
+      p {
+        font-size: 14px;
+      }
+    }
   }
 </style>
-

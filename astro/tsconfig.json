@@ -2,5 +2,6 @@
   "compilerOptions": {
     "moduleResolution": "node",
     "experimentalDecorators": true,
-  },
+    "types": ["@astrojs/image/client"]
+  }
 }
