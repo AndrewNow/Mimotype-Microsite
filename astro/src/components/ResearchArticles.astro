@@ -33,8 +33,12 @@ const { data } = Astro.props;
             />
           </div>
           <div class="postTextContainer">
-            <small>{formattedDate}</small>
-            <h4>{post.title}</h4>
+            <span>
+              <small>{formattedDate}</small>
+              <h4>
+                <a href={`/blog/research/${post.slug}`}>{post.title}</a>
+              </h4>
+            </span>
             <VisitArticleButton
               url={`/blog/research/${post.slug}`}
               colorPrimary="var(--color-green-light)"
@@ -75,11 +79,33 @@ const { data } = Astro.props;
   .postTextContainer {
     grid-column: 2 / 3;
     display: block;
-
+    h4,
+    a {
+      color: var(--color-text);
+    }
+    a {
+      letter-spacing: unset;
+    }
     small {
       text-transform: uppercase;
       display: block;
       padding-bottom: 1rem;
+    }
+  }
+  @media (max-width: 1280px) {
+    .postWrapper {
+      grid-gap: 0 2rem;
+    }
+  }
+  @media (max-width: 992px) {
+    .postWrapper {
+      display: block;
+    }
+    .postTextContainer {
+      padding-top: 1.5rem;
+      small {
+        padding-bottom: 0.5rem;
+      }
     }
   }
 </style>

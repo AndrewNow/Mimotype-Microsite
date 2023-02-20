@@ -169,6 +169,10 @@ small {
 }
 
 @media (max-width: 576px) {
+  h1 {
+    font-size: 40px;
+    letter-spacing: -2px;
+  }
   h2 {
     font-size: 28px;
   }

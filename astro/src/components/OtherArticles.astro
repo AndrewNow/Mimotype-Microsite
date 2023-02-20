@@ -19,10 +19,10 @@ const { data, articleType, slugType } = Astro.props;
         .padStart(2, "0")}.${year.toString()}`;
 
       return (
-        <div key={post._id}>
+        <div key={post._id} class="postWrapper">
           <img
             class="image-styles"
-            width={575}
+            width={665}
             height={280}
             fit="cover"
             aspectRatio="575:280"
@@ -69,6 +69,22 @@ const { data, articleType, slugType } = Astro.props;
       width: 20%;
       text-transform: uppercase;
       display: block;
+    }
+  }
+  @media (max-width: 1280px) {
+    .container {
+      // display: block;
+    }
+    .postWrapper {
+      margin-bottom: 3rem;
+    }
+  }
+  @media (max-width: 768px) {
+    .container {
+      display: block;
+    }
+    .postWrapper {
+      margin-bottom: 2rem;
     }
   }
 </style>

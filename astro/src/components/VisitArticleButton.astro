@@ -40,11 +40,12 @@ const ColorSecondary = colorSecondary;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    .title {
-      padding: 0 0.75rem;
-      text-decoration: none;
-      color: var(--ColorPrimary);
-    }
+  }
+
+  .title {
+    padding: 0 0.75rem;
+    text-decoration: none;
+    color: var(--ColorPrimary);
   }
 
   .circle {
@@ -56,5 +57,21 @@ const ColorSecondary = colorSecondary;
     border-radius: 100%;
     display: grid;
     place-items: center;
+  }
+
+  @media (max-width: 992px) {
+    .wrapper {
+      margin: 1.5rem 0;
+    }
+    .inner {
+      padding: 0.24rem 0.65rem;
+      padding-left: 0.24rem;
+    }
+    .title {
+      font-size: 15px;
+    }
+    .circle {
+      scale: 0.85;
+    }
   }
 </style>

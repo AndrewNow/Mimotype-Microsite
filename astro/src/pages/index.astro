@@ -1,7 +1,7 @@
 ---
 import Layout from "../layouts/PageLayout.astro";
 import Container from "../components/Container.astro";
-import Landing from "../components/landing.astro";
+import Landing from "../components/Landing.astro";
 import ResearchArticles from "../components/ResearchArticles.astro";
 import OtherArticles from "../components/OtherArticles.astro";
 import {
@@ -27,7 +27,7 @@ const strategyPostData = await getStrategyPosts();
     <h1>
       Organic light. <br /> For a brighter future.
     </h1>
-    <section class="articleWrapper">
+    <section class="researchArticlesWrapper">
       <h2>Research</h2>
       {
         researchPostData && (
@@ -71,7 +71,7 @@ const strategyPostData = await getStrategyPosts();
     }
   }
 
-  .articleWrapper {
+  .researchArticlesWrapper {
     width: 95%;
     display: block;
     position: relative;
@@ -95,6 +95,27 @@ const strategyPostData = await getStrategyPosts();
       grid-column: 1 / 2;
       h2 {
         width: 70%;
+      }
+    }
+  }
+  @media (max-width: 1280px) {
+    .otherArticleWrapper {
+      display: block;
+    }
+  }
+  @media (max-width: 768px) {
+    .otherArticleWrapper {
+      display: block;
+    }
+  }
+  @media (max-width: 576px) {
+    .pageWrapper {
+      z-index: 100;
+      h1 {
+        padding: 0;
+        padding-bottom: 2rem;
+        margin: 3rem 0;
+        margin-top: 0;
       }
     }
   }
