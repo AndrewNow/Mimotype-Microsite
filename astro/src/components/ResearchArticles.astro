@@ -1,5 +1,5 @@
 ---
-import { Image } from "@astrojs/image/components";
+// import { Image } from "@astrojs/image/components";
 import VisitArticleButton from "./VisitArticleButton.astro";
 const { data } = Astro.props;
 ---
@@ -24,10 +24,10 @@ const { data } = Astro.props;
           <div class="imageWrapper">
             <img
               class="image-styles"
-              // width={1115}
-              // height={500}
-              // fit="cover"
-              // aspectRatio="1155:500"
+              width={1115}
+              height={500}
+              fit="cover"
+              aspectRatio="1155:500"
               src={post.imageUrl}
               alt={post.title}
             />
@@ -50,6 +50,8 @@ const { data } = Astro.props;
 <style lang="scss">
   .image-styles {
     height: auto;
+    position: relative;
+    overflow: hidden;
   }
   .container {
     width: 100%;
