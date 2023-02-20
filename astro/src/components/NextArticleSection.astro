@@ -1,0 +1,99 @@
+---
+import { Image } from "@astrojs/image/components";
+import VisitArticleButton from "./VisitArticleButton.astro";
+
+const { data, lightColor, darkColor, articleTypeSlug } = Astro.props;
+const post = data[0];
+
+// Format date
+const date = new Date(post.publishedAt);
+const suffixes = ["th", "st", "nd", "rd"];
+// Get the month, day, and year values from the Date object
+const month = date.toLocaleString("default", { month: "long" });
+const day = date.getDate();
+const year = date.getFullYear();
+
+// Determine the correct suffix for the day of the month
+const suffix = suffixes[(day - 20) % 10] || suffixes[day] || suffixes[0];
+
+// Construct the final formatted date string
+const formattedDate = `${month} ${day}${suffix}, ${year}`;
+---
+
+<section class="nextArticle">
+  <h2>Next article</h2>
+  <div class="contentWrapper">
+    <a href={`/blog/${articleTypeSlug}/${post.slug}`}>
+      <Image
+        class="image-styles"
+        width={1115}
+        height={500}
+        fit="cover"
+        aspectRatio="1120:500"
+        src={post.imageUrl}
+        alt={post.title}
+      />
+    </a>
+    <div class="postTextContainer">
+      <small>{formattedDate}</small>
+      <a href={`/blog/${articleTypeSlug}/${post.slug}`}>
+        <h4>
+          {post.title}
+        </h4>
+      </a>
+      <VisitArticleButton
+        url={`/blog/${articleTypeSlug}/${post.slug}`}
+        colorPrimary={lightColor}
+        colorSecondary={darkColor}
+      />
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  .nextArticle {
+    h2 {
+      letter-spacing: -2px;
+      width: 100%;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--color-text);
+    }
+  }
+
+  .contentWrapper {
+    padding: 3rem 0;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: auto;
+    grid-gap: 0 3rem;
+    a {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .image-styles {
+    height: auto;
+  }
+
+  .imageWrapper {
+    // flex: 2;
+    grid-column: 1 / 2;
+    height: auto;
+    aspect-ratio: 1120/500;
+  }
+  .postTextContainer {
+    grid-column: 2 / 3;
+    display: block;
+
+    a {
+      color: var(--color-text);
+    }
+
+    small {
+      text-transform: uppercase;
+      display: block;
+      padding-bottom: 1rem;
+    }
+  }
+</style>

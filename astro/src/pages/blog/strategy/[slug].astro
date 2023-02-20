@@ -24,6 +24,7 @@ const seo = {
 const lightColor = `var(--color-yellow-light)`;
 const darkColor = `var(--color-yellow-dark)`;
 const articleType = "Strategy";
+const articleTypeSlug = "strategy";
 
 // load "read more" data
 const readMoreData = await getMoreStrategyPosts();
@@ -37,5 +38,6 @@ console.log(readMoreData);
     darkColor={darkColor}
     articleType={articleType}
     readMoreData={readMoreData}
+    articleTypeSlug={articleTypeSlug}
   />
 </Layout>

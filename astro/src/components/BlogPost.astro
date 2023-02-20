@@ -1,11 +1,17 @@
 ---
 import SanityPortableText from "./SanityPortableText.astro";
 import { getSanityImageURL, formatBlogPostDate } from "../utils/helpers.js";
+import NextArticleSection from "./NextArticleSection.astro";
 import Stamp from "../svg/stamp.astro";
 
-const { post, lightColor, darkColor, articleType, readMoreData } = Astro.props;
-
-
+const {
+  post,
+  lightColor,
+  darkColor,
+  articleType,
+  articleTypeSlug,
+  readMoreData,
+} = Astro.props;
 ---
 
 <div class="blogPostWrapper">
@@ -35,9 +41,14 @@ const { post, lightColor, darkColor, articleType, readMoreData } = Astro.props;
   </article>
   {
     readMoreData && (
-      <div>
-        <h1>{readMoreData[0].slug}</h1>
-      </div>
+      <>
+        <NextArticleSection
+          data={readMoreData}
+          lightColor={lightColor}
+          darkColor={darkColor}
+          articleTypeSlug={articleTypeSlug}
+        />
+      </>
     )
   }
   <!-- {
@@ -106,6 +117,10 @@ const { post, lightColor, darkColor, articleType, readMoreData } = Astro.props;
     margin: 5rem 0;
     display: grid;
     place-items: center;
+  }
+
+  .readMore {
+    display: flex;
   }
 
   @media (max-width: 1500px) {
