@@ -1,7 +1,6 @@
 ---
 import { Image } from "@astrojs/image/components";
 import VisitArticleButton from "./VisitArticleButton.astro";
-import { getSanityImageURL } from "../utils/helpers.js";
 const { data } = Astro.props;
 ---
 
@@ -23,13 +22,13 @@ const { data } = Astro.props;
       return (
         <div class="postWrapper" key={post._id}>
           <div class="imageWrapper">
-            <Image
+            <img
               class="image-styles"
-              width={1115}
-              height={500}
-              fit="cover"
-              aspectRatio="1155:500"
-              src={`${getSanityImageURL(post.mainImage).url()}`}
+              // width={1115}
+              // height={500}
+              // fit="cover"
+              // aspectRatio="1155:500"
+              src={post.imageUrl}
               alt={post.title}
             />
           </div>
