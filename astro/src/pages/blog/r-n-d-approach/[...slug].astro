@@ -4,24 +4,23 @@ import BlogPost from "../../../components/BlogPost.astro";
 import { getSanityImageURL } from "../../../utils/helpers.js";
 import { getApproachPosts, getMoreApproachPosts } from "../../../lib/api.js";
 
-export async function getStaticPaths() {
-  const approachPosts = await getApproachPosts();
+const approachPosts = await getApproachPosts();
 
-  return approachPosts.map((post) => ({
-    params: { slug: post.slug },
-    props: { post },
-  }));
-}
+// https://docs.astro.build/en/core-concepts/routing/#server-ssr-mode
+const { slug } = Astro.params;
 
-const { post } = Astro.props;
+const post = approachPosts.find((post) => post.slug === slug);
+
+if (!post) return Astro.redirect("/404");
+
 const seo = {
   title: post.title,
   // description: post.description,
   image: getSanityImageURL(post.mainImage).width(1200).url(),
 };
 
-const lightColor = `var(--color-red-light)`;
-const darkColor = `var(--color-red-dark)`;
+const lightColor = `var(--color-yellow-light)`;
+const darkColor = `var(--color-yellow-dark)`;
 const articleType = "R&D Approach";
 const articleTypeSlug = "r-n-d-approach";
 

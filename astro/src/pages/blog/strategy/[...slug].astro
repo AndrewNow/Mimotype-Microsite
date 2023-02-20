@@ -4,16 +4,14 @@ import BlogPost from "../../../components/BlogPost.astro";
 import { getSanityImageURL } from "../../../utils/helpers.js";
 import { getStrategyPosts, getMoreStrategyPosts } from "../../../lib/api.js";
 
-export async function getStaticPaths() {
-  const strategyPosts = await getStrategyPosts();
+const strategyPosts = await getStrategyPosts();
 
-  return strategyPosts.map((post) => ({
-    params: { slug: post.slug },
-    props: { post },
-  }));
-}
+// https://docs.astro.build/en/core-concepts/routing/#server-ssr-mode
+const { slug } = Astro.params;
 
-const { post } = Astro.props;
+const post = strategyPosts.find((post) => post.slug === slug);
+
+if (!post) return Astro.redirect("/404");
 
 const seo = {
   title: post.title,
@@ -21,8 +19,8 @@ const seo = {
   image: getSanityImageURL(post.mainImage).width(1200).url(),
 };
 
-const lightColor = `var(--color-yellow-light)`;
-const darkColor = `var(--color-yellow-dark)`;
+const lightColor = `var(--color-red-light)`;
+const darkColor = `var(--color-red-dark)`;
 const articleType = "Strategy";
 const articleTypeSlug = "strategy";
 
