@@ -6,8 +6,6 @@ const { data, articleType, slugType } = Astro.props;
 <div class="container">
   {
     data.map((post) => {
-      const imageUrl = post.imageUrl;
-
       const date = new Date(post.publishedAt);
 
       // get the day, month, and year from the date object
@@ -28,7 +26,7 @@ const { data, articleType, slugType } = Astro.props;
             height={280}
             fit="cover"
             aspectRatio="575:280"
-            src={imageUrl}
+            src={post.imageUrl}
             alt={post.title}
           />
           <div class="postTextContainer">
