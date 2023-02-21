@@ -3,6 +3,7 @@ import { Image } from "@astrojs/image/components";
 import VisitArticleButton from "./VisitArticleButton.astro";
 
 const { data, lightColor, darkColor, articleTypeSlug } = Astro.props;
+
 const post = data[0];
 
 // Format date
@@ -23,14 +24,22 @@ const formattedDate = `${month} ${day}${suffix}, ${year}`;
 <section class="nextArticle">
   <h2>Next article</h2>
   <div class="contentWrapper">
-    <a href={`/blog/${articleTypeSlug}/${post.slug}`}>
-      <img
-        class="image-styles"
-        src={post.imageUrl}
-        alt={post.title}
-        loading="lazy"
-      />
-    </a>
+    <div class="imageWrapper">
+      <a href={`/blog/${articleTypeSlug}/${post.slug}`}>
+        <Image
+          class="image-styles"
+          src={`${post.imageUrl}`}
+          alt={post.title}
+          width={1115}
+          height={600}
+          fit="cover"
+          aspectRatio="1155:600"
+          format="webp"
+          quality={90}
+          loading="lazy"
+        />
+      </a>
+    </div>
     <div class="postTextContainer">
       <small>{formattedDate}</small>
       <a href={`/blog/${articleTypeSlug}/${post.slug}`}>
@@ -73,15 +82,23 @@ const formattedDate = `${month} ${day}${suffix}, ${year}`;
     }
   }
   .image-styles {
-    height: auto;
+    transition: var(--hover-transition);
+    height: 100%;
     width: 100%;
+    object-fit: cover;
   }
 
   .imageWrapper {
     // flex: 2;
     grid-column: 1 / 2;
     height: auto;
+    overflow: hidden;
     aspect-ratio: 1120/500;
+    .image-styles:hover {
+      transform: scale(1.05);
+      filter: blur(5px) brightness(1.05) saturate(1.1);
+      cursor: pointer;
+    }
   }
   .postTextContainer {
     grid-column: 2 / 3;

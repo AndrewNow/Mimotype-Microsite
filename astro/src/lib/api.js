@@ -71,38 +71,19 @@ export async function getApproachPosts() {
 
 // query for "read more" section at the bottom of an article
 export async function getMoreApproachPosts() {
-  let lastId = "";
-  let lastPublishedAt = "";
-
-  if (lastId === null) {
-    return [];
-  }
   const query = `
-    *[_type == "approach" && 
-        (publishedAt > $lastPublishedAt || 
-          (publishedAt == $lastPublishedAt && _id > $lastId)
-        )
-      ] | order(publishedAt) | order(publishedAt desc) {
+    *[_type == "approach" ] | order(publishedAt desc){
       _id,
       title,
-      mainImage,
       "slug": slug.current,
+      mainImage,
       "imageUrl": mainImage.asset->url,
       "lqip": mainImage.asset->metadata.lqip,
       publishedAt,
+      body,
     }
   `;
-  const data = await useSanityClient().fetch(query, {
-    lastPublishedAt,
-    lastId,
-  });
-
-  if (data.length > 0) {
-    lastPublishedAt = data[data.length - 1].publishedAt;
-    lastId = data[data.length - 1]._id;
-  } else {
-    lastId = null;
-  }
+  const data = await useSanityClient().fetch(query);
   return data;
 }
 

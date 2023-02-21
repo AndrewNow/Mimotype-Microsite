@@ -20,17 +20,25 @@ const { data, articleType, slugType } = Astro.props;
 
       return (
         <div key={post._id} class="postWrapper">
-          <img
-            class="image-styles"
-            width={665}
-            height={280}
-            fit="cover"
-            aspectRatio="575:280"
-            src={post.imageUrl}
-            alt={post.title}
-          />
+          <div class="imageWrapper">
+            <a href={`/blog/${slugType}/${post.slug}`}>
+              <Image
+                class="image-styles"
+                src={post.imageUrl}
+                alt={post.title}
+                width={665}
+                height={280}
+                fit="cover"
+                aspectRatio="575:280"
+                format="webp"
+                quality={90}
+              />
+            </a>
+          </div>
           <div class="postTextContainer">
-            <small>{formattedDate}</small>
+            <small id="hackedTextOtherArticles" data-value={`${formattedDate}`}>
+              {formattedDate}
+            </small>
             <h6>
               <a href={`/blog/${slugType}/${post.slug}`}>{post.title}</a>
             </h6>
@@ -41,9 +49,91 @@ const { data, articleType, slugType } = Astro.props;
   }
 </div>
 
+<script>
+  function startLetterAnimation(target) {
+    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    let interval = null;
+    let iteration = 0;
+
+    clearInterval(interval);
+
+    interval = setInterval(() => {
+      target.innerText = target.innerText
+        .split("")
+        .map((letter, index) => {
+          if (index < iteration) {
+            return target.dataset.value[index];
+          }
+          return letters[Math.floor(Math.random() * 26)];
+          // ^ floor to avoid decimals
+          // 26 bc 26 letters in {letters}
+        })
+        .join("");
+
+      if (iteration >= target.dataset.value.length) {
+        // set the max iteration count to the length of the word
+        clearInterval(interval);
+      }
+      iteration += 1 / 2; // iteractions per letter
+    }, 20); // speed of effect (lower = faster)
+  }
+
+  // select all elements with an id of "small"
+  const smallElements = document.querySelectorAll("#hackedTextOtherArticles");
+  // store the observer instances in an array
+  const observers = [];
+
+  // create a new observer instance for each element in the smallElements array
+  smallElements.forEach((element) => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              // if element is in view, start the animation
+              startLetterAnimation(entry.target);
+            }, 50); // 100ms delay
+          }
+        });
+      },
+      { rootMargin: "0px", once: true }
+    );
+
+    observers.push(observer);
+  });
+
+  smallElements.forEach((element, index) => {
+    observers[index].observe(element);
+  });
+</script>
+
 <style lang="scss">
+  #small {
+    font-family: monospace;
+  }
+  .postWrapper {
+    position: relative;
+  }
+
   .image-styles {
+    transition: var(--hover-transition);
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .imageWrapper {
+    position: relative;
+    aspect-ratio: 575/280;
+    width: 100%;
     height: auto;
+    overflow: hidden;
+
+    .image-styles:hover {
+      transform: scale(1.05);
+      filter: blur(2px) brightness(1.1) saturate(1.1);
+      cursor: pointer;
+    }
   }
   .container {
     grid-column: 2 / 3;
@@ -56,7 +146,7 @@ const { data, articleType, slugType } = Astro.props;
   .postTextContainer {
     display: flex;
     align-items: flex-start;
-    margin-top: .7rem;
+    margin-top: 0.7rem;
     h6 {
       a {
         color: var(--color-text);
@@ -68,7 +158,7 @@ const { data, articleType, slugType } = Astro.props;
       width: 80%;
     }
     small {
-      margin-top: .4rem;
+      margin-top: 0.2rem;
       margin-right: 1rem;
       width: 20%;
       text-transform: uppercase;
