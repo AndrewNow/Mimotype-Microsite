@@ -14,9 +14,16 @@
 }
 
 @font-face {
-  font-family: "Allnce-Text-Regular", Arial, Helvetica, sans-serif;
+  font-family: "Allnce-Text-Regular";
   src: url("/fonts/allnce-text-regular.woff2") format("woff2");
   font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Allnce-Text-Medium";
+  src: url("/fonts/allnce-text-medium.woff2") format("woff2");
+  font-weight: bold;
   font-style: normal;
 }
 
@@ -43,6 +50,7 @@
   --breakpoint-m: 768px;
   --breakpoint-s: 576px;
   --breakpoint-xs: 374px;
+  --hover-transition: 0.75s all ease;
 }
 
 html,
@@ -55,6 +63,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+}
+a {
+  transition: var(--hover-transition);
 }
 
 h1,
@@ -87,11 +98,22 @@ a {
   font-weight: 100;
   letter-spacing: 0.75px;
 }
+li,
 p {
   font-family: "Allnce-Text-Regular", Arial, Helvetica, sans-serif;
-  line-height: 150%;
-  font-weight: 100;
-  letter-spacing: 0.25px;
+  line-height: 175%;
+  letter-spacing: 0.65px;
+}
+
+p > strong {
+  font-family: "Allnce-Text-Medium", Arial, Helvetica, sans-serif;
+}
+p > em {
+  font-family: "Allnce-Text-Medium", Arial, Helvetica, sans-serif;
+  font-style: italic;
+}
+strong {
+  font-family: "Allnce-Text-Medium", Arial, Helvetica, sans-serif;
 }
 
 /* Font scale */
@@ -115,7 +137,7 @@ h3 {
 
 h4,
 blockquote {
-  letter-spacing: -1px;
+  letter-spacing: 0px;
   font-size: 32px;
   line-height: 125%;
 }

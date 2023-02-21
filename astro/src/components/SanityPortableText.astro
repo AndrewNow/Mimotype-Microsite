@@ -8,6 +8,25 @@ const { portableText } = Astro.props;
 
 <style is:global lang="scss">
   .styledMarkdown {
+    a {
+      text-decoration: underline;
+      transition: var(--hover-transition);
+    }
+    a:hover {
+      filter: brightness(60%);
+    }
+    ul {
+      li {
+        margin: 0;
+        padding: 0.5rem 0;
+      }
+      h4 {
+        margin-left: 0rem;
+        margin-right: 0;
+        padding: 0;
+      }
+    }
+
     h1,
     h2,
     h3,
