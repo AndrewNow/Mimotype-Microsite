@@ -6,12 +6,14 @@
   src: url("/fonts/allnce-neue-regular.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 @font-face {
   font-family: "Allnce-Neue-Light";
   src: url("/fonts/allnce-neue-light.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -19,6 +21,7 @@
   src: url("/fonts/allnce-text-regular.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -26,13 +29,7 @@
   src: url("/fonts/allnce-text-medium.woff2") format("woff2");
   font-weight: bold;
   font-style: normal;
-}
-
-@font-face {
-  font-family: "Allnce-Mono";
-  src: url("/fonts/allnce-mono.woff2") format("woff2");
-  font-weight: bold;
-  font-style: normal;
+  font-display: swap;
 }
 
 :root {
