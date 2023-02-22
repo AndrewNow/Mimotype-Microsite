@@ -1,13 +1,9 @@
 ---
 import Layout from "../layouts/PageLayout.astro";
-import type { Props as BaseHeadProps } from "../components/BaseHead.astro";
+import { BaseHeadProps } from "../components/BaseHead.astro";
 import ArticleSchema from "../components/ArticleSchema.astro";
 
-export interface Props {
-  seo?: BaseHeadProps;
-}
-
-const { seo } = Astro.props as Props;
+const { seo } = Astro.props;
 ---
 
 <Layout seo={seo}>

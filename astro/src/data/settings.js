@@ -1,9 +1,9 @@
 export default {
   title: `Mimotype`,
-  description: `This is an example blog made with Astro.`,
+  description: `Organic light. For a brighter future.`,
   url: `https://mimotype-microsite.vercel.app`, // No trailing slash!
   // JSON LD
-  name: `Example`,
+  name: `Mimotype`,
   // Facebook URL
   // facebookURL: `https://facebook.com`,
   // Twitter URL
