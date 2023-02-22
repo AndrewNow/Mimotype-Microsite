@@ -14,9 +14,11 @@ const post = researchPosts.find((post) => post.slug === slug);
 if (!post) return Astro.redirect("/404");
 
 const seo = {
-  title: post.title,
-  // description: post.description,
-  image: getSanityImageURL(post.mainImage).width(1200).url(),
+  title: `Mimotype | RESEARCH`,
+  description:
+    "Stay informed on the latest advancements and challenges in the optoelectronics industry, from sustainable materials to ethical supply chains. Discover the developments that are shaping the future of the industry in our research section.",
+  image: "https://i.imgur.com/kxR8Twa.png",
+  // image: getSanityImageURL(post.mainImage).width(1200).url(),
 };
 
 const lightColor = `var(--color-purple-light)`;
