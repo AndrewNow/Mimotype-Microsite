@@ -4,10 +4,11 @@ import VisitArticleButton from "./VisitArticleButton.astro";
 
 const { data, lightColor, darkColor, articleTypeSlug } = Astro.props;
 
+console.log(data);
 const post = data[0];
 
 // Format date
-const date = new Date(post.publishedAt);
+const date = new Date(post?.publishedAt);
 const suffixes = ["th", "st", "nd", "rd"];
 // Get the month, day, and year values from the Date object
 const month = date.toLocaleString("default", { month: "long" });
@@ -22,39 +23,102 @@ const formattedDate = `${month} ${day}${suffix}, ${year}`;
 ---
 
 <section class="nextArticle">
-  <h2>Next article</h2>
-  <div class="contentWrapper">
-    <div class="imageWrapper">
-      <a href={`/blog/${articleTypeSlug}/${post.slug}`}>
-        <Image
-          class="image-styles"
-          src={`${post.imageUrl}`}
-          alt={post.title}
-          width={1115}
-          height={600}
-          fit="cover"
-          aspectRatio="1155:600"
-          format="webp"
-          quality={90}
-          loading="lazy"
-        />
-      </a>
-    </div>
-    <div class="postTextContainer">
-      <small>{formattedDate}</small>
-      <a href={`/blog/${articleTypeSlug}/${post.slug}`}>
-        <h4>
-          {post.title}
-        </h4>
-      </a>
-      <VisitArticleButton
-        url={`/blog/${articleTypeSlug}/${post.slug}`}
-        colorPrimary={lightColor}
-        colorSecondary={darkColor}
-      />
-    </div>
-  </div>
+  {
+    post && (
+      <>
+        <h2>Next article</h2>
+        <div class="contentWrapper">
+          <div class="imageWrapper">
+            <a href={`/blog/${articleTypeSlug}/${post?.slug}`}>
+              <Image
+                class="image-styles"
+                src={`${post?.imageUrl}`}
+                alt={post?.title}
+                width={1115}
+                height={600}
+                fit="cover"
+                aspectRatio="1155:600"
+                format="webp"
+                quality={90}
+                loading="lazy"
+              />
+            </a>
+          </div>
+          <div class="postTextContainer">
+            <small id="hackedTextNextArticle" data-value={`${formattedDate}`}>
+              {formattedDate}
+            </small>
+            <a href={`/blog/${articleTypeSlug}/${post?.slug}`}>
+              <h4>{post?.title}</h4>
+            </a>
+            <VisitArticleButton
+              url={`/blog/${articleTypeSlug}/${post?.slug}`}
+              colorPrimary={lightColor}
+              colorSecondary={darkColor}
+            />
+          </div>
+        </div>
+      </>
+    )
+  }
 </section>
+<script>
+  function startLetterAnimation(target) {
+    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    let interval = null;
+    let iteration = 0;
+
+    clearInterval(interval);
+
+    interval = setInterval(() => {
+      target.innerText = target.innerText
+        .split("")
+        .map((letter, index) => {
+          if (index < iteration) {
+            return target.dataset.value[index];
+          }
+          return letters[Math.floor(Math.random() * 26)];
+          // ^ floor to avoid decimals
+          // 26 bc 26 letters in {letters}
+        })
+        .join("");
+
+      if (iteration >= target.dataset.value.length) {
+        // set the max iteration count to the length of the word
+        clearInterval(interval);
+      }
+      iteration += 1 / 2; // iteractions per letter
+    }, 20); // speed of effect (lower = faster)
+  }
+
+  // select all elements with an id of "small"
+  const smallElements = document.querySelectorAll("#hackedTextNextArticle");
+  // store the observer instances in an array
+  const observers = [];
+
+  // create a new observer instance for each element in the smallElements array
+  smallElements.forEach((element) => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              // if element is in view, start the animation
+              startLetterAnimation(entry.target);
+            }, 50); // 100ms delay
+          }
+        });
+      },
+      { rootMargin: "0px", once: true }
+    );
+
+    observers.push(observer);
+  });
+
+  smallElements.forEach((element, index) => {
+    observers[index].observe(element);
+  });
+</script>
 
 <style lang="scss">
   .nextArticle {

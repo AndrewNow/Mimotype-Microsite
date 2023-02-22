@@ -24,8 +24,12 @@ const darkColor = `var(--color-red-dark)`;
 const articleType = "Strategy";
 const articleTypeSlug = "strategy";
 
+// store current slug and publishedAt to pass to the "more posts" query
+const currentId = post._id;
+const publishedAt = post.publishedAt;
+
 // load "read more" data
-const readMoreData = await getMoreStrategyPosts();
+const readMoreData = await getMoreStrategyPosts({ currentId, publishedAt });
 ---
 
 <Layout seo={seo}>
@@ -34,7 +38,7 @@ const readMoreData = await getMoreStrategyPosts();
     lightColor={lightColor}
     darkColor={darkColor}
     articleType={articleType}
-    readMoreData={readMoreData}
     articleTypeSlug={articleTypeSlug}
+    readMoreData={readMoreData}
   />
 </Layout>

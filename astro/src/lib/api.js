@@ -23,7 +23,6 @@ export async function getResearchPosts() {
       "slug": slug.current,
       mainImage,
       "imageUrl": mainImage.asset->url,
-      "lqip": mainImage.asset->metadata.lqip,
       publishedAt,
       body,
     }
@@ -33,20 +32,37 @@ export async function getResearchPosts() {
 }
 
 // query for "read more" section at the bottom of an article
-export async function getMoreResearchPosts() {
-  const query = `
-    *[_type == "research" && slug.current != $slug] | order(publishedAt desc){
+export async function getMoreResearchPosts({ currentId, publishedAt }) {
+  let lastId = currentId;
+  let lastPublishedAt = publishedAt;
+  if (lastId === null) {
+    return [];
+  }
+  const result = await useSanityClient().fetch(
+    `*[_type == "research" && 
+        (
+          publishedAt < $lastPublishedAt ||
+          (publishedAt == $lastPublishedAt && _id > $lastId)
+        )
+      ][0...1] | order(publishedAt) {
       _id,
       title,
       mainImage,
       "slug": slug.current,
       "imageUrl": mainImage.asset->url,
-      "lqip": mainImage.asset->metadata.lqip,
       publishedAt,
     }
-  `;
-  const data = await useSanityClient().fetch(query);
-  return data;
+    `,
+    { lastId, lastPublishedAt }
+  );
+
+  if (result.length > 0) {
+    lastPublishedAt = result[result.length - 1].publishedAt;
+    lastId = result[result.length - 1]._id;
+  } else {
+    lastId = null; // Reached the end
+  }
+  return result;
 }
 
 // R&D APPROACH
@@ -60,7 +76,6 @@ export async function getApproachPosts() {
       "slug": slug.current,
       mainImage,
       "imageUrl": mainImage.asset->url,
-      "lqip": mainImage.asset->metadata.lqip,
       publishedAt,
       body,
     }
@@ -70,21 +85,37 @@ export async function getApproachPosts() {
 }
 
 // query for "read more" section at the bottom of an article
-export async function getMoreApproachPosts() {
-  const query = `
-    *[_type == "approach" ] | order(publishedAt desc){
+export async function getMoreApproachPosts({ currentId, publishedAt }) {
+  let lastId = currentId;
+  let lastPublishedAt = publishedAt;
+  if (lastId === null) {
+    return [];
+  }
+  const result = await useSanityClient().fetch(
+    `*[_type == "approach" && 
+        (
+          publishedAt < $lastPublishedAt ||
+          (publishedAt == $lastPublishedAt && _id > $lastId)
+        )
+      ][0...1] | order(publishedAt) {
       _id,
       title,
-      "slug": slug.current,
       mainImage,
+      "slug": slug.current,
       "imageUrl": mainImage.asset->url,
-      "lqip": mainImage.asset->metadata.lqip,
       publishedAt,
-      body,
     }
-  `;
-  const data = await useSanityClient().fetch(query);
-  return data;
+    `,
+    { lastId, lastPublishedAt }
+  );
+
+  if (result.length > 0) {
+    lastPublishedAt = result[result.length - 1].publishedAt;
+    lastId = result[result.length - 1]._id;
+  } else {
+    lastId = null; // Reached the end
+  }
+  return result;
 }
 
 // STRATEGY
@@ -99,7 +130,6 @@ export async function getStrategyPosts() {
       mainImage,
       "slug": slug.current,
       "imageUrl": mainImage.asset->url,
-      "lqip": mainImage.asset->metadata.lqip,
       publishedAt,
       body,
     }
@@ -109,28 +139,35 @@ export async function getStrategyPosts() {
 }
 
 // query for "read more" section at the bottom of an article
-export async function getMoreStrategyPosts() {
-  let lastId = "";
+export async function getMoreStrategyPosts({ currentId, publishedAt }) {
+  let lastId = currentId;
+  let lastPublishedAt = publishedAt;
   if (lastId === null) {
     return [];
   }
-  const query = `
-    *[_type == "strategy"]  | order(publishedAt desc){
+  const result = await useSanityClient().fetch(
+    `*[_type == "strategy" && 
+        (
+          publishedAt < $lastPublishedAt ||
+          (publishedAt == $lastPublishedAt && _id > $lastId)
+        )
+      ][0...1] | order(publishedAt) {
       _id,
       title,
       mainImage,
       "slug": slug.current,
       "imageUrl": mainImage.asset->url,
-      "lqip": mainImage.asset->metadata.lqip,
       publishedAt,
     }
-  `;
-  const data = await useSanityClient().fetch(query, { lastId });
+    `,
+    { lastId, lastPublishedAt }
+  );
 
-  if (data.length > 0) {
-    lastId = data[data.length - 1]._id;
+  if (result.length > 0) {
+    lastPublishedAt = result[result.length - 1].publishedAt;
+    lastId = result[result.length - 1]._id;
   } else {
-    lastid = null;
+    lastId = null; // Reached the end
   }
-  return data;
+  return result;
 }

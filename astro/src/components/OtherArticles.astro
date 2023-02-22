@@ -160,17 +160,19 @@ const { data, articleType, slugType } = Astro.props;
     small {
       margin-top: 0.3rem;
       margin-right: 1rem;
-      width: 20%;
+      width: auto;
       text-transform: uppercase;
       display: block;
     }
   }
   @media (max-width: 1280px) {
-    .container {
-      // display: block;
-    }
     .postWrapper {
-      margin-bottom: 3rem;
+      margin-bottom: 2rem;
+    }
+  }
+  @media (max-width: 992px) {
+    .postWrapper {
+      margin-bottom: 1rem;
     }
   }
   @media (max-width: 768px) {

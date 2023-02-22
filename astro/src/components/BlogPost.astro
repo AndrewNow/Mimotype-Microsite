@@ -24,14 +24,16 @@ const {
           </div>
         )
       }
-      <h2>{post.title}</h2>
-      <time>
+      <div class="hideAnimatedItem">
+        <h2>{post.title}</h2>
+      </div>
+      <div class="underline"></div>
+      <time class="hideAnimatedItem">
         <small>
           {formatBlogPostDate(post.publishedAt)}
         </small>
       </time>
     </header>
-    {post.author && <p>By {post.author.name}</p>}
     <div class="markdownWrapper">
       <SanityPortableText portableText={post.body} />
     </div>
@@ -65,19 +67,84 @@ const {
     width: 65%;
     margin: 0 auto;
   }
+
+  @keyframes underline {
+    0% {
+      width: 0%;
+    }
+    100% {
+      width: 100%;
+    }
+  }
+
+  @keyframes fade-translate {
+    0% {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
   .blogHeader {
     margin-bottom: 5rem;
-    h2 {
-      padding-bottom: 2rem;
-      margin-bottom: 1rem;
-      border-bottom: 1px solid var(--color-text);
-    }
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+  .hideAnimatedItem {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
     small {
+      position: relative;
       text-transform: uppercase;
     }
   }
 
+  .underline {
+    width: 100%;
+    margin: 1rem 0;
+    display: block;
+    position: relative;
+  }
+
+  .underline::after {
+    content: "";
+    display: inline-block;
+    position: relative;
+    bottom: -2px;
+    left: 0;
+    height: 1px;
+    width: 0%;
+    background-color: var(--color-text);
+    animation: underline 0.5s cubic-bezier(0.7, 0, 0.84, 0) 0.15s forwards;
+  }
+
+  /* Add the following CSS for fade-in-y animation */
+  .hideAnimatedItem h2 {
+    opacity: 0;
+    animation: fade-translate 1s ease 0.5s forwards;
+  }
+  .hideAnimatedItem small {
+    opacity: 0;
+    animation: fade-translate 1s ease 0.75s forwards;
+  }
+
   .categoryPill {
+    opacity: 0;
+    animation: fade-in 1s ease 0.75s forwards;
     p {
       font-family: "Allnce-Neue-Regular";
       leading-trim: both;
@@ -94,6 +161,8 @@ const {
   }
 
   .markdownWrapper {
+    opacity: 0;
+    animation: fade-in 1s ease 0.5s forwards;
     a {
       color: var(--lightColor);
     }

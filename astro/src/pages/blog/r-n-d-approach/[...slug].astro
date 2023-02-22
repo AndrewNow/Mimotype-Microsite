@@ -24,8 +24,11 @@ const darkColor = `var(--color-yellow-dark)`;
 const articleType = "R&D Approach";
 const articleTypeSlug = "r-n-d-approach";
 
+// store current slug and publishedAt to pass to the "more posts" query
+const currentId = post._id;
+const publishedAt = post.publishedAt;
 // load "read more" data
-const readMoreData = await getMoreApproachPosts();
+const readMoreData = await getMoreApproachPosts({ currentId, publishedAt });
 ---
 
 <Layout seo={seo}>

@@ -19,13 +19,16 @@ const seo = {
   image: getSanityImageURL(post.mainImage).width(1200).url(),
 };
 
-// load "read more" data
-// const readMoreData = await getMoreResearchPosts();
-
 const lightColor = `var(--color-purple-light)`;
 const darkColor = `var(--color-purple-dark)`;
 const articleType = "Research";
 const articleTypeSlug = "research";
+
+// store current slug and publishedAt to pass to the "more posts" query
+const currentId = post._id;
+const publishedAt = post.publishedAt;
+// load "read more" data
+const readMoreData = await getMoreResearchPosts({ currentId, publishedAt });
 ---
 
 <Layout seo={seo}>
@@ -35,5 +38,6 @@ const articleTypeSlug = "research";
     darkColor={darkColor}
     articleType={articleType}
     articleTypeSlug={articleTypeSlug}
+    readMoreData={readMoreData}
   />
 </Layout>
