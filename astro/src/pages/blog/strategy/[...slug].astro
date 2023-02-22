@@ -16,7 +16,8 @@ if (!post) return Astro.redirect("/404");
 const seo = {
   title: post.title,
   // description: post.description,
-  image: getSanityImageURL(post.mainImage).width(1200).url(),
+  // image: getSanityImageURL(post.mainImage).width(1200).url(),
+  image: "https://i.imgur.com/NWXzAva.png"
 };
 
 const lightColor = `var(--color-red-light)`;

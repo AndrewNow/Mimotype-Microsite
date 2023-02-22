@@ -45,7 +45,7 @@ const image = new URL(Astro.props.image || "./social.png", Astro.site);
 <meta property="og:url" content={canonicalURL} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content={image} />
+<meta property="og:image" type="image/png" content={image} />
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
