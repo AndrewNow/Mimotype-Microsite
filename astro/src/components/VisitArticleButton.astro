@@ -1,5 +1,5 @@
 ---
-const { url, colorPrimary, colorSecondary } = Astro.props;
+const { url, colorPrimary, colorSecondary, inputText } = Astro.props;
 const ColorPrimary = colorPrimary;
 const ColorSecondary = colorSecondary;
 ---
@@ -20,7 +20,7 @@ const ColorSecondary = colorSecondary;
             fill={colorSecondary}></path>
         </svg>
       </span>
-      <div class="title">Visit article</div>
+      <div class="title">{inputText ? inputText : "Visit article"}</div>
     </div>
   </a>
 </div>

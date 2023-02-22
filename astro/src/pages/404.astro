@@ -1,18 +1,32 @@
 ---
 import Layout from "../layouts/PageLayout.astro";
-// import Container from "../components/Container.astro";
+import VisitArticleButton from "../components/VisitArticleButton.astro";
 
 const seo = {
-  title: "Uh Oh! Page Not Found",
-  description:
-    "This is a starter repo for an blog built with Astro including open graph tags, canonical urls, RSS, sitemap support.",
+  title: "404",
 };
 ---
 
 <Layout seo={seo}>
-  <!-- <Container> -->
-  <h1>404</h1>
-  <p>Uh Oh! We couldn't find the page you were looking for</p>
-  <a href="/">Return Home</a>
-  <!-- </Container> -->
+  <div class="wrapper">
+    <h1>You've reached a <br />broken link.</h1>
+    <VisitArticleButton
+      url="/"
+      inputText="Return home"
+      colorPrimary={"var(--color-red-light)"}
+      colorSecondary={"var(--color-red-dark)"}
+    />
+  </div>
 </Layout>
+
+<style lang="scss">
+  .wrapper {
+    min-height: 50vh;
+    width: var(--page-width);
+    max-width: var(--max-page-width);
+    margin: 0 auto;
+    h1 {
+      padding-top: 20vh;
+    }
+  }
+</style>
