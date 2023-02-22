@@ -10,7 +10,9 @@ import "../styles/global.css";
 //   image?: string;
 // }
 
-const title = `Mimotype — ${Astro.props.title}` || `Mimotype`;
+const title = Astro.props.title
+  ? `Mimotype — ${Astro.props.title}`
+  : `Mimotype`;
 const description =
   Astro.props.description || `Organic light. For a brighter future.`;
 const canonicalURL =
