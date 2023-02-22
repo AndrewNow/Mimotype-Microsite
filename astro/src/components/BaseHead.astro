@@ -13,11 +13,12 @@ import "../styles/global.css";
 const title = Astro.props.title
   ? `Mimotype — ${Astro.props.title}`
   : `Mimotype`;
-const description =
-  Astro.props.description || `Organic light. For a brighter future.`;
+const description = Astro.props.description
+  ? Astro.props.description
+  : `Organic light. For a brighter future.`;
 const canonicalURL =
-  Astro.props.canonicalURL || new URL(Astro.url.pathname, Astro.site);
-const image = new URL(Astro.props.image || "./social.png", Astro.site);
+  Astro.props.canonicalURL ? : Astro.props.canonicalURL new URL(Astro.url.pathname, Astro.site);
+const image = Astro.props.image ?  Astro.props.image : new URL(Astro.props.image || "./social.png", Astro.site);
 ---
 
 <meta charset="utf-8" />
