@@ -58,6 +58,53 @@
   --hover-transition: 0.75s all ease;
 }
 
+#mc_embed_signup div.mce_inline_error {
+  position: absolute;
+  margin: unset;
+  padding: unset;
+  background-color: unset;
+  font-weight: unset;
+  color: unset;
+  z-index: 1;
+  margin: 1rem 0;
+  font-family: "Overpass Mono", monospace;
+  color: var(--color-green-light);
+  transition: var(--hover-transition);
+  letter-spacing: 0px;
+  color: var(--color-grey);
+  font-size: 14px;
+  font-weight: 400;
+}
+
+@media (max-width: 576px) {
+  #mc_embed_signup div.mce_inline_error {
+    font-size: 12px;
+  }
+}
+
+#mc-embedded-subscribe-form {
+  position: relative;
+  z-index: 10;
+}
+
+#mce-success-response {
+  position: absolute;
+  margin: unset;
+  padding: unset;
+  background-color: unset;
+  font-weight: unset;
+  color: unset;
+  z-index: 1;
+  margin: 1rem 0;
+  font-family: "Overpass Mono", monospace;
+  color: var(--color-green-light);
+  transition: var(--hover-transition);
+  letter-spacing: 0px;
+  color: var(--color-grey);
+  font-size: 14px;
+  font-weight: 400;
+}
+
 html,
 body {
   margin: 0;
@@ -108,12 +155,11 @@ blockquote {
 }
 
 h6 {
+  font-family: "Allnce-Neue-Light", Helvetica, sans-serif;
   font-size: 20px;
   font-weight: 100;
-  font-family: "Allnce-Neue-Light", Helvetica, sans-serif;
-  font-weight: 100;
   line-height: 115%;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
 }
 
 a {

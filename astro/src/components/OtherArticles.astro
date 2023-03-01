@@ -1,13 +1,13 @@
 ---
 import { Image } from "@astrojs/image/components";
-const { data, articleType, slugType } = Astro.props;
+const { data, slugType } = Astro.props;
 ---
 
 <div class="container">
   {
     data.map((post) => {
       const date = new Date(post.publishedAt);
-
+      
       // get the day, month, and year from the date object
       const day = date.getDate();
       const month = date.getMonth() + 1;
@@ -19,7 +19,7 @@ const { data, articleType, slugType } = Astro.props;
         .padStart(2, "0")}.${year.toString()}`;
 
       return (
-        <div key={post._id} class="postWrapper">
+        <div class="postWrapper">
           <div class="imageWrapper">
             <a href={`/blog/${slugType}/${post.slug}`}>
               <Image
@@ -81,24 +81,26 @@ const { data, articleType, slugType } = Astro.props;
   // select all elements with an id of "small"
   const smallElements = document.querySelectorAll("#hackedTextOtherArticles");
   // store the observer instances in an array
-  const observers = [];
+  const observers: IntersectionObserver[] = [];
 
   // create a new observer instance for each element in the smallElements array
   smallElements.forEach((element) => {
     const observer = new IntersectionObserver(
-      (entries) => {
+      (entries, observer) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             setTimeout(() => {
               // if element is in view, start the animation
               startLetterAnimation(entry.target);
+              observer.unobserve(entry.target); // stop observing the element after it is intersected once
             }, 50); // 100ms delay
           }
         });
       },
-      { rootMargin: "0px", once: true }
+      { rootMargin: "0px" }
     );
 
+    observer.observe(element);
     observers.push(observer);
   });
 

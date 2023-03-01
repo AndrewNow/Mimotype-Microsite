@@ -20,7 +20,7 @@ const { data } = Astro.props;
       // Construct the final formatted date string
       const formattedDate = `${month} ${day}${suffix}, ${year}`;
       return (
-        <div class="postWrapper" key={post._id}>
+        <div class="postWrapper">
           <div class="imageWrapper">
             <a href={`/blog/research/${post.slug}`}>
               <Image
@@ -89,24 +89,26 @@ const { data } = Astro.props;
   // select all elements with an id of "small"
   const smallElements = document.querySelectorAll("#hackedText");
   // store the observer instances in an array
-  const observers = [];
+  const observers: IntersectionObserver[] = [];
 
   // create a new observer instance for each element in the smallElements array
   smallElements.forEach((element) => {
     const observer = new IntersectionObserver(
-      (entries) => {
+      (entries, observer) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             setTimeout(() => {
               // if element is in view, start the animation
               startLetterAnimation(entry.target);
-            }, 50); // 50ms delay
+              observer.unobserve(entry.target); // stop observing the element after it is intersected once
+            }, 50); // 100ms delay
           }
         });
       },
-      { rootMargin: "0px", once: true }
+      { rootMargin: "0px" }
     );
 
+    observer.observe(element);
     observers.push(observer);
   });
 
