@@ -56,6 +56,7 @@
   --breakpoint-s: 576px;
   --breakpoint-xs: 374px;
   --hover-transition: 0.75s all ease;
+  --hover-arrow-transition: 0.55s all cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 #mc_embed_signup div.mce_inline_error {

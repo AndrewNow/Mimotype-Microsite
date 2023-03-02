@@ -1,0 +1,113 @@
+---
+import Layout from "../layouts/PageLayout.astro";
+
+const seo = {
+  title: "Imprint",
+  description: "Join us in shaping the future of the optoelectronics industry.",
+  image: "https://i.imgur.com/hev2VXn.png",
+};
+---
+
+<Layout seo={seo}>
+  <section class="pageWrapper">
+    <div class="articleWrapper">
+      <h1>Imprint</h1>
+      <h4>
+        Information according to § 5 TMG (German Telemedia Act):
+      </h4>
+      <p>Mimotype Technologies GmbH
+      <br/>
+      Friedrichstraße 17
+      <br/>
+      
+      10969 Berlin
+      <br/>
+      
+      Geschäftsführer: Claudio Flores, Danilo Flores
+      <br/>
+      </p>
+      <h4>
+        Contact
+      </h4>
+      <p>
+        Danilo Flores
+        <br />
+        Telefon: +49 017668363878
+        <br />
+        E-Mail: danilo@mimotype.org
+        <br />
+        USt-ID: DE949786362
+      </p>
+      <h4>
+        Responsible for content according to § 55 Abs. 2 RStV (Interstate Broadcasting Agreement):
+      </h4>
+      <p>
+        Mimotype Technologies GmbH
+        <br />
+        Friedrichstraße 17
+        <br />
+        
+        10969 Berlin
+        <br />
+        
+        Geschäftsführer: Claudio Flores, Danilo Flores
+      </p>
+    </div>
+  </section>
+</Layout>
+
+<style lang="scss">
+  .pageWrapper {
+    width: var(--page-width);
+    max-width: var(--max-page-width);
+    position: relative;
+    margin: 0 auto;
+    h1 {
+      padding: 2rem 0;
+      margin: 4rem 0;
+      margin-top: 20vh;
+      border-bottom: 1px solid var(--color-grey);
+    }
+    h2 {
+      padding-top: 4rem;
+      margin-top: 4rem;
+    }
+    h4 {
+      margin-top: 4rem;
+      margin-bottom: 1rem;
+    }
+    a {
+      color: var(--color-red-light);
+    }
+    a:hover {
+      filter: brightness(0.6);
+    }
+    li {
+      margin-bottom: 1rem;
+    }
+  }
+  .articleWrapper {
+    width: 65%;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 1500px) {
+    .articleWrapper {
+      width: 85vw;
+    }
+  }
+  @media (max-width: 576px) {
+    .articleWrapper {
+      width: 100%;
+    }
+    .pageWrapper {
+      z-index: 100;
+      h1 {
+        padding: 0;
+        padding-bottom: 2rem;
+        margin: 3rem 0;
+        margin-top: 10rem;
+      }
+    }
+  }
+</style>
