@@ -109,23 +109,32 @@
 
   @media (max-width: 576px) {
     .inner {
-      margin-top: 1rem;
-      margin-bottom: 2rem;
+      small {
+        font-size: 14px;
+      }
+      margin-top: 2rem;
+      margin-bottom: 8rem;
     }
-    .stampLogo {
+    .stapmLogo {
       max-width: 40px;
     }
     .inner {
       display: block;
     }
     .flex {
-      margin: 1rem 0;
+      margin: 7rem 0;
+      margin-bottom: 2rem;
       // display: inline;
       a {
-        margin-top: 0.5rem;
+        // margin-top: 0.5rem;
         display: block;
       }
     }
+
+    .flex > small:first-of-type {
+      margin-bottom: 1rem;
+    }
+
     .left {
       display: block;
     }
