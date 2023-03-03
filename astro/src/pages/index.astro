@@ -34,24 +34,24 @@ const strategyPostData = await getStrategyPosts();
         )
       }
       {
-        approachPostData && (
+        approachPostData.length ? (
           <div class="otherArticleWrapper">
             <div class="otherTitle">
               <h2>Our R&D Approach</h2>
             </div>
             <OtherArticles data={approachPostData} slugType="r-n-d-approach" />
           </div>
-        )
+        ) : null
       }
       {
-        strategyPostData && (
+        strategyPostData.length ? (
           <div class="otherArticleWrapper">
             <div class="otherTitle">
               <h2>Strategy</h2>
             </div>
             <OtherArticles data={strategyPostData} slugType="strategy" />
           </div>
-        )
+        ) : null
       }
     </section>
   </div>
