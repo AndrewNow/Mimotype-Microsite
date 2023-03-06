@@ -3,7 +3,7 @@ import Crustacean from "../svg/crustacean.astro";
 ---
 
 <!-- Begin Mailchimp Signup Form -->
-<div id="mc_embed_signup">
+<section id="mc_embed_signup">
   <form
     action="https://mimotype.us17.list-manage.com/subscribe/post?u=f12a49713f2b8fffa5a2a5870&id=113a135fd8&f_id=00be5ce0f0"
     method="post"
@@ -22,6 +22,7 @@ import Crustacean from "../svg/crustacean.astro";
       <div class="mc-field-group">
         <div class="inputContainer">
           <div class="textInputWrapper">
+            <label for="mce-EMAIL">Email address:</label>
             <input
               type="email"
               value=""
@@ -90,7 +91,7 @@ import Crustacean from "../svg/crustacean.astro";
   <div class="crustaceanWrapper">
     <Crustacean />
   </div>
-</div>
+</section>
 <script
   type="text/javascript"
   src="//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"
@@ -207,6 +208,10 @@ import Crustacean from "../svg/crustacean.astro";
       }
     }
     .textInputWrapper {
+      label {
+        position: absolute;
+        left: -5000px;
+      }
       width: 80%;
       height: 60px;
       margin-top: 1rem;
