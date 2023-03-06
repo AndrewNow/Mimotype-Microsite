@@ -32,7 +32,8 @@ const image = Astro.props.image ? Astro.props.image : "./social.png";
 <title>{title || `Mimotype | ${settings.title} `}</title>
 <meta name="title" content={title || settings.title} />
 <meta name="description" content={description || settings.description} />
-<link rel="icon" trel="icon" href="./favicon.svg" />
+<link rel="icon" rel="icon" href="./favicon.svg" />
+<link rel="canonical" href={canonicalURL} />
 <!-- settingsmap -->
 <link rel="settingsmap" href="/settingsmap.xml" />
 <!-- RSS -->
@@ -43,14 +44,13 @@ const image = Astro.props.image ? Astro.props.image : "./social.png";
   href={`${settings.url}/feed/blog.xml`}
 /> -->
 <!-- Canonical -->
-<link rel="canonical" href={canonicalURL} />
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
 <meta property="og:url" content={canonicalURL} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:image" type="image/png" content={image} />
+<meta property="og:image" content={image} />
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
