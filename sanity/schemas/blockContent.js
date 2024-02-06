@@ -21,11 +21,11 @@ export default {
       // you want and decide how you want to deal with it where you want to
       // use your content.
       styles: [
-        {title: 'Normal', value: 'normal'},
-        {title: 'H1', value: 'h1'},
-        {title: 'H2', value: 'h2'},
-        {title: 'H3', value: 'h3'},
-        {title: 'H4', value: 'h4'},
+        // {title: 'H1', value: 'h1'},
+        // {title: 'H2', value: 'h2'},
+        {title: 'Heading - H3', value: 'h3'},
+        {title: 'Subheading - H4', value: 'h4'},
+        {title: 'Paragraph text - Normal', value: 'normal'},
         {title: 'Quote', value: 'blockquote'},
       ],
       lists: [{title: 'Bullet', value: 'bullet'}],
@@ -57,6 +57,28 @@ export default {
     // You can add additional types here. Note that you can't use
     // primitive types such as 'string' and 'number' in the same array
     // as a block type.
+    // {
+    //   title: 'image',
+    //   name: 'image',
+    //   type: 'array', 
+    //   fields: [
+    //     {
+    //       type: 'image',
+    //     },
+    //     {
+    //       title: "Alt text",
+    //       name: "alt",
+    //       description: "Alternate text for SEO/accessibility purposes. Describe the image here.",
+    //       type: "string"
+    //     },
+    //     {
+    //       title: "imgSubtitle",
+    //       name: "Image subtitle",
+    //       description: "Subtitle for the image",
+    //       type: "string"
+    //     }
+    //   ]
+    // },
     {
       type: 'image',
       options: {hotspot: true},
