@@ -1,10 +1,10 @@
 {
   "root": true,
   "project": {
-    "name": "Sanity Minimal Starter"
+    "name": "Mimotype"
   },
   "api": {
-    "projectId": "8hj1t7km",
+    "projectId": "scwqq8bp",
     "dataset": "production"
   },
   "plugins": [
