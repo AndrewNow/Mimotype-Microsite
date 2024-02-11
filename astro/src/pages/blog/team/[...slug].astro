@@ -2,19 +2,19 @@
 import Layout from "../../../layouts/PageLayout.astro";
 import BlogPost from "../../../components/BlogPost.astro";
 import { getSanityImageURL } from "../../../utils/helpers.js";
-import { getStrategyPosts, getMoreStrategyPosts } from "../../../lib/api.js";
+import { getTeamPosts, getMoreTeamPosts } from "../../../lib/api.js";
 
-const strategyPosts = await getStrategyPosts();
+const teamPosts = await getTeamPosts();
 
 // https://docs.astro.build/en/core-concepts/routing/#server-ssr-mode
 const { slug } = Astro.params;
 
-const post = strategyPosts.find((post) => post.slug === slug);
+const post = teamPosts.find((post) => post.slug === slug);
 
 if (!post) return Astro.redirect("/404");
 
 const seo = {
-  title: `STRATEGY`,
+  title: `TEAM`,
   description:
     "Learn more about our specimen founders, members of a pioneer species who thrive where others falter, driven by the basic instinct of exploring the solution space.",
   // image: getSanityImageURL(post.mainImage).width(1200).url(),
@@ -23,15 +23,15 @@ const seo = {
 
 const lightColor = `var(--color-red-light)`;
 const darkColor = `var(--color-red-dark)`;
-const articleType = "Strategy";
-const articleTypeSlug = "strategy";
+const articleType = "Team";
+const articleTypeSlug = "team";
 
 // store current slug and publishedAt to pass to the "more posts" query
 const currentId = post._id;
 const publishedAt = post.publishedAt;
 
 // load "read more" data
-const readMoreData = await getMoreStrategyPosts({ currentId, publishedAt });
+const readMoreData = await getMoreTeamPosts({ currentId, publishedAt });
 ---
 
 <Layout seo={seo}>
