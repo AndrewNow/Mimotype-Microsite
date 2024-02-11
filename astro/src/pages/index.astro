@@ -1,12 +1,12 @@
 ---
 import Layout from "../layouts/PageLayout.astro";
 import Landing from "../components/Landing.astro";
-import ResearchArticles from "../components/ResearchArticles.astro";
+import CompaniesArticles from "../components/CompaniesArticles.astro";
 import OtherArticles from "../components/OtherArticles.astro";
 import {
-  getResearchPosts,
-  getApproachPosts,
-  getStrategyPosts,
+  getCompaniesPosts,
+  getThesisPosts,
+  getTeamPosts,
 } from "../lib/api.js";
 
 const seo = {
@@ -15,41 +15,50 @@ const seo = {
   image: "https://i.imgur.com/hev2VXn.png",
 };
 
-const researchPostData = await getResearchPosts();
-const approachPostData = await getApproachPosts();
-const strategyPostData = await getStrategyPosts();
+const companiesPostData = await getCompaniesPosts();
+const thesisPostData = await getThesisPosts();
+const teamPostData = await getTeamPosts();
 ---
 
 <Layout seo={seo}>
   <Landing />
   <div class="pageWrapper">
-    <h1>
-      Organic light. <br /> For a brighter future.
-    </h1>
-    <section class="researchArticlesWrapper">
-      <h2>Research</h2>
+    <div class="header">
+
+      <h1>
+        The bionano <br />progenote org
+      </h1>
+      <p>Mimotype is a deal origination entity,
+        
+        carving out specialized investee firms,
+        each of which reconfigures markets 
+        
+        through biomorphic material innovation.</p>
+      </div>
+    <section class="companiesArticlesWrapper">
+        <h2>Companies</h2>
       {
-        researchPostData && (
-          <ResearchArticles data={researchPostData} slugType="research" />
+        companiesPostData && (
+          <CompaniesArticles data={companiesPostData} slugType="research" />
         )
       }
       {
-        approachPostData.length ? (
+        thesisPostData.length ? (
           <div class="otherArticleWrapper">
             <div class="otherTitle">
-              <h2>Our R&D Approach</h2>
+              <h2>Thesis</h2>
             </div>
-            <OtherArticles data={approachPostData} slugType="r-n-d-approach" />
+            <OtherArticles data={thesisPostData} slugType="thesis" />
           </div>
         ) : null
       }
       {
-        strategyPostData.length ? (
+        teamPostData.length ? (
           <div class="otherArticleWrapper">
             <div class="otherTitle">
-              <h2>Strategy</h2>
+              <h2>Team</h2>
             </div>
-            <OtherArticles data={strategyPostData} slugType="strategy" />
+            <OtherArticles data={teamPostData} slugType="team" />
           </div>
         ) : null
       }
@@ -63,14 +72,20 @@ const strategyPostData = await getStrategyPosts();
     max-width: var(--max-page-width);
     position: relative;
     margin: 0 auto;
-    h1 {
-      padding: 3rem 0;
-      margin: 6rem 0;
+    .header {
       border-bottom: 1px solid var(--color-grey);
+      margin: 6rem 0;
+      h1 {
+        padding: 3rem 0;
+      }
+      p {
+        max-width: 550px;
+        padding-bottom: 2rem;
+      }
     }
   }
 
-  .researchArticlesWrapper {
+  .companiesArticlesWrapper {
     width: 95%;
     display: block;
     position: relative;
@@ -110,11 +125,19 @@ const strategyPostData = await getStrategyPosts();
   @media (max-width: 576px) {
     .pageWrapper {
       z-index: 100;
-      h1 {
+      .header {
+
         padding: 0;
-        padding-bottom: 2rem;
         margin: 3rem 0;
         margin-top: 0;
+        
+        h1 {
+          padding-bottom: 2rem;
+        }
+        p {
+          padding-bottom: 3rem;
+
+        }
       }
     }
   }
