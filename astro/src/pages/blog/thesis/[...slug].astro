@@ -2,36 +2,35 @@
 import Layout from "../../../layouts/PageLayout.astro";
 import BlogPost from "../../../components/BlogPost.astro";
 import { getSanityImageURL } from "../../../utils/helpers.js";
-import { getStrategyPosts, getMoreStrategyPosts } from "../../../lib/api.js";
+import { getThesisPosts, getMoreThesisPosts } from "../../../lib/api.js";
 
-const strategyPosts = await getStrategyPosts();
+const approachPosts = await getThesisPosts();
 
 // https://docs.astro.build/en/core-concepts/routing/#server-ssr-mode
 const { slug } = Astro.params;
 
-const post = strategyPosts.find((post) => post.slug === slug);
+const post = approachPosts.find((post) => post.slug === slug);
 
 if (!post) return Astro.redirect("/404");
 
 const seo = {
-  title: `STRATEGY`,
+  title: `Thesis`,
   description:
-    "Discover how Mimotype is tackling the pain-points of the current optoelectronics industry, including supply chain issues, ethical concerns, and more.",
+    "Learn more about Mimotype’s approach to off-kilter invention grounded in principles of evolutionary theory, complexity and history of technology.",
+  image: "https://i.imgur.com/wvbplRF.png",
   // image: getSanityImageURL(post.mainImage).width(1200).url(),
-  image: "https://i.imgur.com/NWXzAva.png",
 };
 
-const lightColor = `var(--color-red-light)`;
-const darkColor = `var(--color-red-dark)`;
-const articleType = "Strategy";
-const articleTypeSlug = "strategy";
+const lightColor = `var(--color-yellow-light)`;
+const darkColor = `var(--color-yellow-dark)`;
+const articleType = "Thesis";
+const articleTypeSlug = "thesis";
 
 // store current slug and publishedAt to pass to the "more posts" query
 const currentId = post._id;
 const publishedAt = post.publishedAt;
-
 // load "read more" data
-const readMoreData = await getMoreStrategyPosts({ currentId, publishedAt });
+const readMoreData = await getMoreThesisPosts({ currentId, publishedAt });
 ---
 
 <Layout seo={seo}>

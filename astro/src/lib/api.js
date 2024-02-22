@@ -12,12 +12,12 @@ import { useSanityClient } from "astro-sanity";
 //   return data;
 // }
 
-// RESEARCH
-// RESEARCH
-// RESEARCH
-export async function getResearchPosts() {
+// COMPANIES
+// COMPANIES
+// COMPANIES
+export async function getCompaniesPosts() {
   const query = `
-    *[_type == "research"] | order(publishedAt desc){
+    *[_type == "companies"] | order(publishedAt desc){
       _id,
       title,
       "slug": slug.current,
@@ -32,14 +32,14 @@ export async function getResearchPosts() {
 }
 
 // query for "read more" section at the bottom of an article
-export async function getMoreResearchPosts({ currentId, publishedAt }) {
+export async function getMoreCompaniesPosts({ currentId, publishedAt }) {
   let lastId = currentId;
   let lastPublishedAt = publishedAt;
   if (lastId === null) {
     return [];
   }
   const result = await useSanityClient().fetch(
-    `*[_type == "research" && 
+    `*[_type == "companies" && 
         (
           publishedAt < $lastPublishedAt ||
           (publishedAt == $lastPublishedAt && _id > $lastId)
@@ -65,12 +65,12 @@ export async function getMoreResearchPosts({ currentId, publishedAt }) {
   return result;
 }
 
-// R&D APPROACH
-// R&D APPROACH
-// R&D APPROACH
-export async function getApproachPosts() {
+// THESIS
+// THESIS
+// THESIS
+export async function getThesisPosts() {
   const query = `
-    *[_type == "approach"] | order(publishedAt desc){
+    *[_type == "thesis"] | order(publishedAt desc){
       _id,
       title,
       "slug": slug.current,
@@ -85,14 +85,14 @@ export async function getApproachPosts() {
 }
 
 // query for "read more" section at the bottom of an article
-export async function getMoreApproachPosts({ currentId, publishedAt }) {
+export async function getMoreThesisPosts({ currentId, publishedAt }) {
   let lastId = currentId;
   let lastPublishedAt = publishedAt;
   if (lastId === null) {
     return [];
   }
   const result = await useSanityClient().fetch(
-    `*[_type == "approach" && 
+    `*[_type == "thesis" && 
         (
           publishedAt < $lastPublishedAt ||
           (publishedAt == $lastPublishedAt && _id > $lastId)
@@ -118,13 +118,13 @@ export async function getMoreApproachPosts({ currentId, publishedAt }) {
   return result;
 }
 
-// STRATEGY
-// STRATEGY
-// STRATEGY
+// TEAM
+// TEAM
+// TEAM
 
-export async function getStrategyPosts() {
+export async function getTeamPosts() {
   const query = `
-    *[_type == "strategy"] | order(publishedAt desc){
+    *[_type == "team"] | order(publishedAt desc){
       _id,
       title,
       mainImage,
@@ -139,14 +139,14 @@ export async function getStrategyPosts() {
 }
 
 // query for "read more" section at the bottom of an article
-export async function getMoreStrategyPosts({ currentId, publishedAt }) {
+export async function getMoreTeamPosts({ currentId, publishedAt }) {
   let lastId = currentId;
   let lastPublishedAt = publishedAt;
   if (lastId === null) {
     return [];
   }
   const result = await useSanityClient().fetch(
-    `*[_type == "strategy" && 
+    `*[_type == "team" && 
         (
           publishedAt < $lastPublishedAt ||
           (publishedAt == $lastPublishedAt && _id > $lastId)

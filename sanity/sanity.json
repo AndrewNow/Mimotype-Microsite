@@ -1,5 +1,11 @@
 {
   "root": true,
+<<<<<<< HEAD
+=======
+  "project": {
+    "name": "Mimotype"
+  },
+>>>>>>> aa6c5284271eff9877e0cc2e658a54a628329eb3
   "api": {
     "projectId": "scwqq8bp",
     "dataset": "production"

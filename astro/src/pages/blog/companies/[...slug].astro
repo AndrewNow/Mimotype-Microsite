@@ -2,35 +2,35 @@
 import Layout from "../../../layouts/PageLayout.astro";
 import BlogPost from "../../../components/BlogPost.astro";
 import { getSanityImageURL } from "../../../utils/helpers.js";
-import { getResearchPosts, getMoreResearchPosts } from "../../../lib/api.js";
+import { getCompaniesPosts, getMoreCompaniesPosts } from "../../../lib/api.js";
 
-const researchPosts = await getResearchPosts();
+const companiesPosts = await getCompaniesPosts();
 
 // https://docs.astro.build/en/core-concepts/routing/#server-ssr-mode
 const { slug } = Astro.params;
 
-const post = researchPosts.find((post) => post.slug === slug);
+const post = companiesPosts.find((post) => post.slug === slug);
 
 if (!post) return Astro.redirect("/404");
 
 const seo = {
-  title: `RESEARCH`,
+  title: `COMPANIES`,
   description:
-    "Discover developments and challenges that are shaping the optoelectronics industry, from sustainable materials to ethics & the supply chain.",
-  image: "https://i.imgur.com/kxR8Twa.png",
+    "Learn more about the burgeoning proto-companies (procos) that we co-crystallize in our venture studio through blurring the lines between host and guest.",
+  image: "https://i.imgur.com/pWRwVlg.png",
   // image: getSanityImageURL(post.mainImage).width(1200).url(),
 };
 
 const lightColor = `var(--color-purple-light)`;
 const darkColor = `var(--color-purple-dark)`;
-const articleType = "Research";
-const articleTypeSlug = "research";
+const articleType = "Companies";
+const articleTypeSlug = "companies";
 
 // store current slug and publishedAt to pass to the "more posts" query
 const currentId = post._id;
 const publishedAt = post.publishedAt;
 // load "read more" data
-const readMoreData = await getMoreResearchPosts({ currentId, publishedAt });
+const readMoreData = await getMoreCompaniesPosts({ currentId, publishedAt });
 ---
 
 <Layout seo={seo}>

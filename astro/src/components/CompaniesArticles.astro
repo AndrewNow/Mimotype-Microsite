@@ -22,7 +22,7 @@ const { data } = Astro.props;
       return (
         <div class="postWrapper">
           <div class="imageWrapper">
-            <a href={`/blog/research/${post.slug}`}>
+            <a href={`/blog/companies/${post.slug}`}>
               <Image
                 class="image-styles"
                 src={`${post.imageUrl}`}
@@ -42,11 +42,11 @@ const { data } = Astro.props;
                 {formattedDate}
               </small>
               <h4>
-                <a href={`/blog/research/${post.slug}`}>{post.title}</a>
+                <a href={`/blog/companies/${post.slug}`}>{post.title}</a>
               </h4>
             </span>
             <VisitArticleButton
-              url={`/blog/research/${post.slug}`}
+              url={`/blog/companies/${post.slug}`}
               colorPrimary="var(--color-green-light)"
               colorSecondary="var(--color-green-dark)"
             />
