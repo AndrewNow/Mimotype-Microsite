@@ -3,11 +3,7 @@ import Layout from "../layouts/PageLayout.astro";
 import Landing from "../components/Landing.astro";
 import CompaniesArticles from "../components/CompaniesArticles.astro";
 import OtherArticles from "../components/OtherArticles.astro";
-import {
-  getCompaniesPosts,
-  getThesisPosts,
-  getTeamPosts,
-} from "../lib/api.js";
+import { getCompaniesPosts, getThesisPosts, getTeamPosts } from "../lib/api.js";
 
 const seo = {
   title: "Mimotype",
@@ -18,19 +14,24 @@ const seo = {
 const companiesPostData = await getCompaniesPosts();
 const thesisPostData = await getThesisPosts();
 const teamPostData = await getTeamPosts();
-console.log(companiesPostData)
+console.log(companiesPostData);
 ---
 
 <Layout seo={seo}>
   <Landing />
   <div class="pageWrapper">
     <div class="header">
-
       <h1>
         The bionano <br />progenote org
       </h1>
-      <p>Bioloigy is nanotech gone live: Mimotype is designing ecologically seamless nanomaterials for the light-biomatter interface. We build biomimetic devices and systems for organic/transient electronics, and soft robotics using bio-inspired semiconductors and engineered proteins.</p>
-      </div>
+      <p>
+        Biology is nanotech gone live: Mimotype is designing ecologically
+        seamless nanomaterials for the light-biomatter interface. <br />
+        <br />
+        We build biomimetic devices and systems for organic/transient electronics,
+        and soft robotics using bio-inspired semiconductors and engineered proteins.
+      </p>
+    </div>
     <section class="companiesArticlesWrapper">
       {
         companiesPostData.length ? (
@@ -38,7 +39,7 @@ console.log(companiesPostData)
             <h2>Companies</h2>
             <CompaniesArticles data={companiesPostData} slugType="research" />
           </span>
-          ) : null
+        ) : null
       }
       {
         thesisPostData.length ? (
@@ -124,17 +125,15 @@ console.log(companiesPostData)
     .pageWrapper {
       z-index: 100;
       .header {
-
         padding: 0;
         margin: 3rem 0;
         margin-top: 0;
-        
+
         h1 {
           padding-bottom: 2rem;
         }
         p {
           padding-bottom: 3rem;
-
         }
       }
     }
